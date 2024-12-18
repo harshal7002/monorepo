@@ -7,3 +7,13 @@ This is platform independent.
 2. Clone this repository.
 3. Modify application.properties file for port and wkhtmltopdf cmd location. 
 4. Run this spring boot project. 
+
+
+# API CURL
+
+curl --location 'localhost:9981/wkHtmltoPdf/generatePdf' \
+--header 'Content-Type: application/json' \
+--data '{
+    "src": "source_path",
+    "destination": "destination_path"
+}'
