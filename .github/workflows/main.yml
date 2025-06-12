@@ -16,18 +16,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'  # Ensure JDK 11 is used (Oracle JDK or OpenJDK)
-
-    - name: Set up Maven
-      uses: actions/setup-maven@v2
-
     - name: Build WAR file
       run: |
-        mvn clean package -DskipTests  # Builds the WAR file
-
+        mvn clean package -DskipTests  
   deploy:
     runs-on: [self-hosted, linux]  # Run on your self-hosted runner
     needs: build  # Wait for the build job to finish first
@@ -40,3 +31,5 @@ jobs:
       run: |
         chmod +x ./deploy_to_weblogic.sh
         ./deploy_to_weblogic.sh  # Run your deploy script
+  only:
+    - main  # Deploy only from main branch
