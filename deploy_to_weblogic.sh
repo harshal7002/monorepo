@@ -9,7 +9,7 @@ export WL_HOME="/home/harshal/weblogic/weblogic"  # Path to WebLogic installatio
 export WLS_USERNAME="weblogic"
 export WLS_PASSWORD="Weblogic@123"
 export WLS_URL="t3://localhost:7001"
-export WAR_FILE_PATH="/home/harshal/weblogic/demo-0.0.1-SNAPSHOT.war"
+export WAR_FILE_PATH="target/demo-0.0.1-SNAPSHOT.war"
 
 # Use Jython for WebLogic Scripting Tool (WLST)
 $WL_HOME/oracle_common/common/bin/wlst.sh << EOF
