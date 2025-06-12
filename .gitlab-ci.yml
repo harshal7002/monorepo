@@ -1,0 +1,22 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  MAVEN_OPTS: "-Xmx2g"  # Optional JVM options for Maven build
+  MAVEN_CLI_OPTS: "-s .m2/settings.xml"  # Optional Maven settings file path
+
+# Build stage
+build:
+  stage: build
+  script:
+    - mvn clean package -DskipTests  # Build the WAR file
+
+# Deploy stage
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying to WebLogic server"
+    - ./deploy_to_weblogic.sh  # Deploy script
+  only:
+    - main  # Deploy only from master branch
