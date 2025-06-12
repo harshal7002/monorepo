@@ -26,8 +26,6 @@ jobs:
       - linux
     needs: build  # Make sure deploy runs after build
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
       - name: Deploy WAR file to WebLogic
         run: |
           chmod +x ./deploy_to_weblogic.sh

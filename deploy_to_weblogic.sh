@@ -13,7 +13,6 @@ export WAR_FILE_PATH="target/demo-0.0.1-SNAPSHOT.war"
 
 # Use Jython for WebLogic Scripting Tool (WLST)
 $WL_HOME/oracle_common/common/bin/wlst.sh << EOF
-from weblogic.management.scripting import WLSTException
 from weblogic.management.configuration import *
 try:
     # Connect to the WebLogic Server
@@ -32,7 +31,7 @@ try:
 
     print("Deployment successful!")
 
-except WLSTException as e:
+except Exception as e:
     print("Deployment failed:", e)
     undo()
     cancel()
