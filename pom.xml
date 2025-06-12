@@ -49,6 +49,30 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.oracle.weblogic</groupId>
+				<artifactId>weblogic-maven-plugin</artifactId>
+				<version>12.3.1-0-0</version> <!-- Matches WebLogic version -->
+				<executions>
+				  <execution>
+					<phase>deploy</phase>
+					<goals>
+					  <goal>deploy</goal>
+					</goals>
+				  </execution>
+				</executions>
+				<configuration>
+				  <adminurl>t3://10.0.10.3:7001</adminurl>
+				  <user>weblogic</user>
+				  <password>Weblogic@123</password>
+				  <target>AdminServer</target>
+				  <name>demo-0.0.1-SNAPSHOT</name>
+				  <upload>true</upload>
+				  <remote>true</remote>
+				  <verbose>true</verbose>
+				  <source>target/demo-0.0.1-SNAPSHOT.war</source>
+				</configuration>
+			  </plugin>
 		</plugins>
 	</build>
 
