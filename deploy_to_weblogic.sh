@@ -11,7 +11,7 @@ export WAR_FILE_PATH="target/demo-0.0.1-SNAPSHOT.war"  # Path to your built WAR 
 source $WLS_DOMAIN/bin/setDomainEnv.sh
 
 # Deploy the WAR file using WLST
-python << EOF
+python3 << EOF
 from weblogic.management.scripting import WLSTException
 from weblogic.management.configuration import *
 try:
