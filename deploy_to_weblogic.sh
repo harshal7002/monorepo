@@ -1,17 +1,18 @@
 #!/bin/bash
 
-# Set environment variables for WebLogic credentials
+# Set WebLogic environment variables
+export WL_HOME="/home/harshal/weblogic/weblogic"  # Path to WebLogic installation
+#export JAVA_HOME="/opt/oracle/jdk-11"  # Path to Oracle JDK
+#export PATH="$JAVA_HOME/bin:$WL_HOME/bin:$PATH"
+
+# Set WebLogic credentials and other variables
 export WLS_USERNAME="weblogic"
 export WLS_PASSWORD="Weblogic@123"
 export WLS_URL="t3://localhost:7001"
-export WLS_DOMAIN="/home/harshal/weblogic/weblogic/user_projects/domains/basicWLSDomain"
-export WAR_FILE_PATH="target/demo-0.0.1-SNAPSHOT.war"  # Path to your built WAR file
+export WAR_FILE_PATH="/home/harshal/weblogic/demo-0.0.1-SNAPSHOT.war"
 
-# Set WebLogic environment
-source $WLS_DOMAIN/bin/setDomainEnv.sh
-
-# Deploy the WAR file using WLST
-python3 << EOF
+# Use Jython for WebLogic Scripting Tool (WLST)
+$WL_HOME/oracle_common/common/bin/wlst.sh << EOF
 from weblogic.management.scripting import WLSTException
 from weblogic.management.configuration import *
 try:
@@ -35,4 +36,7 @@ except WLSTException as e:
     print("Deployment failed:", e)
     undo()
     cancel()
+
+# Exit WLST
+exit()
 EOF
