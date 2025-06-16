@@ -3,10 +3,10 @@ name: CI/CD Pipeline for WebLogic Deployment
 on:
   push:
     branches:
-      - main  # Trigger on push to main branch
+      - main # Trigger on push to main branch
   pull_request:
     branches:
-      - main  # Trigger on pull requests to main branch
+      - main # Trigger on pull requests to main branch
 
 jobs:
   build:
@@ -19,28 +19,51 @@ jobs:
       - name: Build WAR file
         run: |
           mvn clean package -DskipTests
-  
-  sonar-analysis:
-    runs-on:
-      - self-hosted
-      - linux
-    steps:
-      - name: SonarQube Scan
-        uses: sonarsource/sonarscanner-action@master
-        env:
-          SONAR_HOST_URL: http://35.200.233.136:9000/
-          SONAR_TOKEN: sqa_05dff30184c6e2f5bf6d0bc2d56bfb30d9d9fe4e
-        with:
-          args: >
-            -Dsonar.projectKey=oracledeployment 
-            -Dsonar.projectName='oracledeployment'
-            -Dsonar.sources=.
 
+  # sonar-analysis:
+  #   runs-on:
+  #     - self-hosted
+  #     - linux
+  #   steps:
+  #     - name: SonarQube Scan
+  #       uses: sonarsource/sonarscanner-action@master
+  #       env:
+  #         SONAR_HOST_URL: http://35.200.233.136:9000/
+  #         SONAR_TOKEN: sqa_05dff30184c6e2f5bf6d0bc2d56bfb30d9d9fe4e
+  #       run: |
+  #         docker run --rm \
+  #           -e SONAR_HOST_URL=$SONAR_HOST_URL \
+  #           -e SONAR_LOGIN=$SONAR_TOKEN \
+  #           -v $PWD:/usr/src \
+  #           sonarsource/sonar-scanner-cli:latest \
+  #           -Dsonar.projectKey=oracledeployment \
+  #           -Dsonar.host.url=$SONAR_HOST_URL \
+  #           -Dsonar.login=$SONAR_TOKEN \
+  #           -Dsonar.sources=/usr/src
+  sonar-analysis:
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - name: SonarQube Scan with Docker
+        env:
+          SONAR_HOST_URL: http://35.200.233.136:9000
+          SONAR_TOKEN: sqa_05dff30184c6e2f5bf6d0bc2d56bfb30d9d9fe4e
+        run: |
+          docker run --rm \
+            -e SONAR_HOST_URL=$SONAR_HOST_URL \
+            -e SONAR_LOGIN=$SONAR_TOKEN \
+            -v $PWD:/usr/src \
+            sonarsource/sonar-scanner-cli:latest \
+            -Dsonar.projectKey=oracledeployment \
+            -Dsonar.host.url=$SONAR_HOST_URL \
+            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.sources=/usr/src
+            
   deploy:
     runs-on:
       - self-hosted
       - linux
-    needs: build  # Make sure deploy runs after build
+    needs: build # Make sure deploy runs after build
     steps:
       - name: Deploy WAR file to WebLogic
         run: |
