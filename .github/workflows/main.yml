@@ -19,6 +19,22 @@ jobs:
       - name: Build WAR file
         run: |
           mvn clean package -DskipTests
+  
+  sonar-analysis:
+    runs-on:
+      - self-hosted
+      - linux
+    steps:
+      - name: SonarQube Scan
+        uses: sonarsource/sonarscanner-action@master
+        env:
+          SONAR_HOST_URL: http://35.200.233.136:9000/
+          SONAR_TOKEN: sqa_05dff30184c6e2f5bf6d0bc2d56bfb30d9d9fe4e
+        with:
+          args: >
+            -Dsonar.projectKey=oracledeployment 
+            -Dsonar.projectName='oracledeployment'
+            -Dsonar.sources=.
 
   deploy:
     runs-on:
