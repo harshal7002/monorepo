@@ -41,7 +41,9 @@ jobs:
   #           -Dsonar.login=$SONAR_TOKEN \
   #           -Dsonar.sources=/usr/src
   sonar-analysis:
-    runs-on: self-hosted
+    runs-on:
+      - self-hosted
+      - linux
     needs: build
     steps:
       - name: SonarQube Scan with Docker
@@ -63,7 +65,7 @@ jobs:
     runs-on:
       - self-hosted
       - linux
-    needs: build # Make sure deploy runs after build
+    needs: [build, sonar-analysis]  # Make sure deploy runs after build
     steps:
       - name: Deploy WAR file to WebLogic
         run: |
