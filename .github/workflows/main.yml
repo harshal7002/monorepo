@@ -46,7 +46,9 @@ jobs:
       - linux
     needs: build
     steps:
-      - name: SonarQube Scan with Docker
+      - name: Debug PATH
+        run: echo $PATH
+      - name: SonarQube Scan
         env:
           SONAR_HOST_URL: http://34.47.148.73:9000
           SONAR_TOKEN: sqa_05dff30184c6e2f5bf6d0bc2d56bfb30d9d9fe4e
