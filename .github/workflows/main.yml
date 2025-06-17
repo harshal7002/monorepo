@@ -46,13 +46,12 @@ jobs:
       - linux
     needs: build
     steps:
-      - name: Debug PATH
-        run: echo $PATH
       - name: SonarQube Scan
         env:
           SONAR_HOST_URL: http://34.47.148.73:9000
           SONAR_TOKEN: sqa_05dff30184c6e2f5bf6d0bc2d56bfb30d9d9fe4e
         run: |
+          source ~/.bashrc
           sonar-scanner -Dsonar.projectKey=oracledeployment -Dsonar.host.url=http://34.47.148.73:9000 -Dsonar.token=sqa_05dff30184c6e2f5bf6d0bc2d56bfb30d9d9fe4e -Dsonar.sources=. -Dsonar.java.binaries=target/classes
             
   deploy:
