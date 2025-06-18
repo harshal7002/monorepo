@@ -38,7 +38,7 @@ jobs:
     runs-on:
       - self-hosted
       - linux
-    needs: [build, sonar-analysis]  # Make sure deploy runs after build
+    needs: sonar-analysis  # Make sure deploy runs after build
     steps:
       - name: Deploy WAR file to WebLogic
         run: |
