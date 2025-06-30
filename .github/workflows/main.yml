@@ -25,25 +25,24 @@ jobs:
         id: set-vars
         run: |
           echo "Detecting changed SOA apps between ${{ github.event.before }} and ${{ github.sha }}"
+
+          # Extract second folder from SOA/*/*
           apps=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} \
             | grep '^SOA/' \
             | cut -d'/' -f2 \
-            | sort -u)
+            | sort -u \
+            | jq -R . | jq -s .)
 
-          echo "Detected apps:"
-          echo "$apps"
-
-          # Convert newlines to space-separated for matrix
-          apps_string=$(echo $apps | tr '\n' ' ')
-          echo "apps=$apps_string" >> $GITHUB_OUTPUT
+          echo "Detected changed SOA apps: $apps"
+          echo "apps=$apps" >> $GITHUB_OUTPUT
 
   build:
     needs: detect-changes
     runs-on: [self-hosted, linux]
-    if: ${{ needs.detect-changes.outputs.apps != '' }}
+    if: ${{ needs.detect-changes.outputs.apps != '[]' }}
     strategy:
       matrix:
-        app: ${{ fromJson('["' + join('","', needs.detect-changes.outputs.apps.split(' ')) + '"]') }}
+        app: ${{ fromJson(needs.detect-changes.outputs.apps) }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -58,7 +57,7 @@ jobs:
     runs-on: [self-hosted, linux]
     strategy:
       matrix:
-        app: ${{ fromJson('["' + join('","', needs.detect-changes.outputs.apps.split(' ')) + '"]') }}
+        app: ${{ fromJson(needs.detect-changes.outputs.apps) }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -82,7 +81,7 @@ jobs:
     runs-on: [self-hosted, linux]
     strategy:
       matrix:
-        app: ${{ fromJson('["' + join('","', needs.detect-changes.outputs.apps.split(' ')) + '"]') }}
+        app: ${{ fromJson(needs.detect-changes.outputs.apps) }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
