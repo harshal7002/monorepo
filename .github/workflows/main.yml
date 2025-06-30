@@ -18,7 +18,7 @@ jobs:
     outputs:
       apps: ${{ steps.set-vars.outputs.apps }}
     steps:
-      - name: Checkout full git history
+      - name: Checkout full history
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -27,14 +27,16 @@ jobs:
         id: set-vars
         run: |
           echo "Detecting changed SOA apps between ${{ github.event.before }} and ${{ github.sha }}"
+
           apps=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} \
             | grep '^SOA/' \
             | cut -d'/' -f2 \
             | sort -u \
-            | jq -R . | jq -s .)
+            | jq -R . | jq -s -c .)
 
           echo "Detected changed SOA apps: $apps"
-           echo "apps=$apps" >> "$GITHUB_OUTPUT"
+
+          echo "apps=$apps" >> $GITHUB_OUTPUT
 
   build:
     needs: detect-changes
