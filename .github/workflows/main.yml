@@ -18,15 +18,15 @@ jobs:
     outputs:
       apps: ${{ steps.set-vars.outputs.apps }}
     steps:
-      - name: Checkout code
+      - name: Checkout full git history
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Detect Changed SOA Apps
         id: set-vars
         run: |
           echo "Detecting changed SOA apps between ${{ github.event.before }} and ${{ github.sha }}"
-
-          # Extract second folder from SOA/*/*
           apps=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} \
             | grep '^SOA/' \
             | cut -d'/' -f2 \
