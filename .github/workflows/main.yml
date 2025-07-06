@@ -46,9 +46,6 @@ jobs:
       matrix:
         app: ${{ fromJson(needs.detect-changes.outputs.apps) }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Build WAR for ${{ matrix.app }}
         run: |
           cd SOA/${{ matrix.app }}

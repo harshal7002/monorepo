@@ -18,7 +18,7 @@ public class DemoApplication {
 
 	@GetMapping("path")
 	public String getMethodName() {
-		return "Hello World! Oracle deployment via github runner. Instance 2" ;
+		return "Hello World! Oracle deployment via github runner in i2" ;
 	}
 	
 
