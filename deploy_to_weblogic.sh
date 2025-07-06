@@ -30,22 +30,30 @@ APP_NAME=$(basename "$APP_DIR")
 echo "🚀 Deploying $APP_NAME from $WAR_FILE to WebLogic..."
 
 # Run WLST
-WLST_SCRIPT="/tmp/deploy_${APP_NAME}.py"
-cat > "$WLST_SCRIPT" <<EOF
+$ORACLE_HOME/oracle_common/common/bin/wlst.sh << EOF
+from weblogic.management.configuration import *
 try:
-    connect('weblogic', 'Weblogic@123', 't3://34.47.182.189:7001')
+    # Connect to the WebLogic Server
+    connect('$WLS_USERNAME', '$WLS_PASSWORD', '$WLS_URL')
+
+    # Start a session and check for the server's availability
     edit()
     startEdit()
-    deploy(appName='${APP_NAME}', path='${WAR_FILE}', targets='AdminServer', stageMode='stage')
+
+    # Deploy the WAR file
+    deploy(appName='$APP_NAME', path='$WAR_FILE', targets='AdminServer', stageMode='stage')
+
+    # Save and activate the changes
     save()
     activate()
-    print("✅ Deployment of '${APP_NAME}' successful.")
-except Exception as e:
-    print("❌ Deployment failed:", e)
-    undo('true', 'y')
-    cancelEdit('y')
+
+    print("Deployment $APP_NAME successful!")
+
+except Exception, e:
+    print("Deployment failed:", e)
+    undo()
+    cancel()
+
+# Exit WLST
 exit()
 EOF
-
-# Run WLST script
-$ORACLE_HOME/oracle_common/common/bin/wlst.sh "$WLST_SCRIPT"
