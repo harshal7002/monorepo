@@ -16,7 +16,7 @@ public class DemoApplication {
 		System.out.println("Started successfully hello world!!");
 	}
 
-	@GetMapping("path")
+	@GetMapping("/path")
 	public String getMethodName() {
 		return "Hello World! Oracle deployment via github runner.  instance#$%%##!!!!!" ;
 	}
