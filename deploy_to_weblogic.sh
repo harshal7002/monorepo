@@ -36,7 +36,7 @@ try:
     connect('weblogic', 'Weblogic@123', 't3://34.47.182.189:7001')
     edit()
     startEdit()
-    deploy(appName='${APP_NAME}', path='${WAR_FILE}', targets='AdminServer', stageMode='stage')
+    deploy(appName='${APP_NAME}', path='${WAR_FILE}', targets='AdminServer', stageMode='stage', upload='true', block='true')
     save()
     activate()
     print("✅ Deployment of '${APP_NAME}' successful.")
