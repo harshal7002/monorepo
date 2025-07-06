@@ -1,0 +1,58 @@
+---
+config:
+  layout: dagre
+  theme: mc
+  look: classic
+---
+
+flowchart TD
+  %% Trigger Node
+  A[Trigger: Push or PR on main branch\nPath: SOA/**, OSB/**, MFT/**] --> B2
+
+  %% Detect Changes
+  subgraph detect["Job: detect-changes"]
+    B1["Checkout full history"]
+    B2["Detect changed apps (SOA/OSB/MFT)"]
+  end
+  B1 --> B2
+
+  %% Decision Point
+  B2 --> C{Were any apps changed?\ne.g. SOA/app1, OSB/app2}
+
+  C -- No --> Z[Stop pipeline]
+  C -- Yes --> E1
+
+  %% Build Job
+  subgraph build["Job: build (matrix per app)"]
+    E1[Checkout code]
+    E2[Build WAR using Maven]
+  end
+  E1 --> E2
+
+  %% Sonar Analysis
+  subgraph sonar["Job: sonar-analysis (matrix per app)"]
+    F1[Run SonarQube Analysis]
+  end
+  E2 --> F1
+
+
+  %% Veracode Scan
+  subgraph veracode["Job: veracode-scan (matrix per app)"]
+    V1[Prepare artifact for Veracode]
+    V2[Upload to Veracode and scan]
+  end
+  F1 --> V1
+  V1 --> V2
+
+  %% Nexus Push
+  subgraph nexus["Job: push-to-nexus (matrix per app)"]
+    N1[Upload WAR to Nexus repository]
+  end
+  V2 --> N1
+
+  %% Deployment
+  subgraph deploy["Job: deploy (matrix per app)"]
+    G1[Run deploy_to_weblogic.sh]
+  end
+  N1 --> G1
+  
