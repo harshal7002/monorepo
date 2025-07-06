@@ -34,21 +34,21 @@ $ORACLE_HOME/oracle_common/common/bin/wlst.sh <<EOF
 from weblogic.management.configuration import *
 
 try:
-    connect('$WLS_USERNAME', '$WLS_PASSWORD', '$WLS_URL')
-    edit()
-    startEdit()
+  connect('$WLS_USERNAME', '$WLS_PASSWORD', '$WLS_URL')
+  edit()
+  startEdit()
 
-    deploy(appName='$APP_NAME', path='$WAR_FILE', targets='AdminServer', stageMode='stage')
+  deploy(appName='$APP_NAME', path='$WAR_FILE', targets='AdminServer', stageMode='stage')
 
-    save()
-    activate()
+  save()
+  activate()
 
-    print("✅ Deployment of $APP_NAME successful!")
+  print("✅ Deployment of $APP_NAME successful!")
 
 except Exception as e:
-    print("❌ Deployment failed:", e)
-    undo()
-    cancel()
+  print("❌ Deployment failed:", e)
+  undo()
+  cancel()
 
 exit()
 EOF
