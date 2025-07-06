@@ -127,7 +127,7 @@ jobs:
   #           $NEXUS_REPO_URL/repository/your-repository-path/${{ matrix.app }}.war
 
   deploy:
-    needs: build
+    needs: [build,detect-changes]
     runs-on: [self-hosted, linux]
     strategy:
       matrix:
