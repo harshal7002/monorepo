@@ -49,3 +49,12 @@ EOF
 
 # Run WLST script
 $ORACLE_HOME/oracle_common/common/bin/wlst.sh "$WLST_SCRIPT"
+
+
+connect('weblogic', 'Weblogic@123', 't3://34.47.182.189:7001')
+edit()
+startEdit()
+redeploy('oracle-deployment', '/u01/runner/actions-runner/_work/monorepo/monorepo/SOA/oracle-deployment/target/demo-0.0.1-SNAPSHOT.war', targets='AdminServer', stageMode='stage', upload='true', block='true')
+save()
+activate()
+print("✅ Deployment of 'oracle-deployment' successful.") 
