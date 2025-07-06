@@ -7,14 +7,14 @@ set -e
 APP_DIR="$1"
 
 # Set WebLogic environment variables
-export WL_HOME="/home/harshal/weblogic/weblogic"  # Adjust if needed
+# export WL_HOME="/home/harshal/weblogic/weblogic"  # Adjust if needed
 # export JAVA_HOME="/opt/oracle/jdk-11"
 # export PATH="$JAVA_HOME/bin:$WL_HOME/bin:$PATH"
 
 # WebLogic credentials
 export WLS_USERNAME="weblogic"
 export WLS_PASSWORD="Weblogic@123"
-export WLS_URL="t3://localhost:7001"
+export WLS_URL="t3://34.47.182.189:7001"
 
 # Find WAR file inside the provided path
 WAR_FILE=$(find "$APP_DIR/target" -name "*.war" | head -n 1)
@@ -30,7 +30,7 @@ APP_NAME=$(basename "$APP_DIR")
 echo "🚀 Deploying $APP_NAME from $WAR_FILE to WebLogic..."
 
 # Run WLST
-$WL_HOME/oracle_common/common/bin/wlst.sh <<EOF
+$ORACLE_HOME/oracle_common/common/bin/wlst.sh <<EOF
 from weblogic.management.configuration import *
 
 try:
