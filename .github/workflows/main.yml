@@ -133,9 +133,6 @@ jobs:
       matrix:
         app: ${{ fromJson(needs.detect-changes.outputs.apps) }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Deploy WAR to WebLogic - ${{ matrix.app }}
         run: |
           chmod +x ./deploy_to_weblogic.sh
