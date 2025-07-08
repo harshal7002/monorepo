@@ -35,7 +35,7 @@
         <scac.displayLevel>1</scac.displayLevel>
         <!-- if you are using a config plan, uncomment the following line and update to point 
              to your config plan -->
-        <!--<configplan>${scac.input.dir}/configplan.xml</configplan> -->
+        <!--<configplan>${scac.input.dir}/configplan.xml</configplan>   -->
 
         <!-- these parameters are used by the deploy and undeploy goals -->
         <composite.name>${project.artifactId}</composite.name>
