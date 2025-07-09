@@ -1,0 +1,9 @@
+<Jul 6, 2025 7:03:17,450 PM EDT> <Info> <oracle.osb.tools-configjar> <BEA-000000> <The temporary directory (/home/raki/jdeveloper/mywork/ServiceBusApplication/osbtest/.data/maven/configjar/configfwk/osbinstance1751842997427/OSB11gConfig) has been created for the configuration framework data. This directory will not be automatically deleted.> 
+<Jul 6, 2025 7:03:17,558 PM EDT> <Info> <oracle.osb.offline.kernel-offline.kerneloffline> <OSB-2030850> <Initializing ALSB in offline mode. Install dir: /home/raki/Oracle/Middleware/Oracle_Home/osb config dir: /home/raki/jdeveloper/mywork/ServiceBusApplication/osbtest/.data/maven/configjar/configfwk/osbinstance1751842997427/OSB11gConfig> 
+<Jul 6, 2025 7:03:18,945 PM EDT> <Info> <oracle.osb.debug.dvm> <BEA-000000> <DVM Initialize Begin> 
+<Jul 6, 2025 7:03:18,947 PM EDT> <Info> <oracle.osb.debug.dvm> <BEA-000000> <::com.bea.wli.sb.resources.dvm.DVMRepository@3ae0b770> 
+<Jul 6, 2025 7:03:18,947 PM EDT> <Info> <oracle.osb.debug.dvm> <BEA-000000> <Completed AddService:com.bea.wli.sb.resources.dvm.DVMRepository@3ae0b770> 
+<Jul 6, 2025 7:03:19,006 PM EDT> <Info> <oracle.osb.debug.dvm> <BEA-000000> <DVM Initialize End> 
+<Jul 6, 2025 7:03:25,904 PM EDT> <Info> <oracle.osb.tools-configjar> <BEA-000000> <OSB offline instance has started.> 
+<Jul 6, 2025 7:03:26,065 PM EDT> <Info> <oracle.osb.tools-configjar> <BEA-000000> <OSB Config Jar /home/raki/jdeveloper/mywork/ServiceBusApplication/osbtest/.data/maven/sbconfig.sbar has been created successfully.> 
+<Jul 6, 2025 7:03:26,067 PM EDT> <Info> <oracle.osb.tools-configjar> <BEA-000000> <Config Jar tool completed.> 
