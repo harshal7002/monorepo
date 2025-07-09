@@ -50,7 +50,7 @@
         <keepInstancesOnRedeploy>false</keepInstancesOnRedeploy>
 
         <!-- these parameters are used by the test goal -->
-        <!-- if you are using the sca-test (test) goal, you need to uncomment the following
+        <!-- if you are using the sca-test (test) goal, you need to uncomment the following ccc
              line and point it to your jndi.properties file. -->
         <!--<jndi.properties.input>${basedir}/jndi.properties</jndi.properties.input>-->
         <scatest.result>${scac.output.dir}/testResult</scatest.result>
