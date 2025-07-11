@@ -33,7 +33,7 @@
         <scac.output>${scac.output.dir}/out.xml</scac.output>
         <scac.error>${scac.output.dir}/error.txt</scac.error>
         <scac.displayLevel>1</scac.displayLevel>
-        <!-- if you are using a config plan, uncomment the following line and update to point 
+        <!-- if you are using a config plan, uncomment the following line and up  date to point  
              to your config plan -->
         <!--<configplan>${scac.input.dir}/configplan.xml</configplan>   -->
 
