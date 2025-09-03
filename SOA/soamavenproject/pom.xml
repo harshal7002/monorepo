@@ -5,8 +5,8 @@
     <artifactId>soamavenproject</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>sar</packaging>
-    
-    <!--
+            
+    <!-- tri
            This POM was generated from the SOA Maven Archetype.
            Comments in this POM guide you how to use it with your project.
            This POM relates to this SOA Composite, i.e. the one in this same directory.
